@@ -103,10 +103,9 @@ namespace BookVerse.Services.Core
                         Publisher = b.Publisher.UserName,
                         PublishedOn = b.PublishedOn,
                         Genre = b.Genre.Name,
-                        //IsSaved = b.UsersBooks.Any(ub => ub.BookId == b.Id && ub.UserId == userId),
                         IsAuthor = userId != null && b.PublisherId != userId,
                     }).FirstOrDefaultAsync();
-
+                        
             return model;
         }
 
