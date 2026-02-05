@@ -63,7 +63,7 @@ namespace BookVerse.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> AddToMyBooks(int id) //returning is a problem - it refers to a null object
+        public async Task<IActionResult> AddToMyBooks(int id) 
         {
             string userId = GetUserId();
 
@@ -73,12 +73,12 @@ namespace BookVerse.Web.Controllers
 
                 if (myDesiredBook == null)
                 {
-                    return RedirectToAction("Details");
+                    return RedirectToAction("Details", new { id });
                 }
 
                 await _bookService.AddBookToMyDesiredBooksAsync(userId, myDesiredBook);
             }
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", new { id });
         }
 
         public async Task<IActionResult> Remove(int id)
@@ -139,7 +139,7 @@ namespace BookVerse.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+           
             return View(model);
         }
 
@@ -165,7 +165,7 @@ namespace BookVerse.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            await _bookService.EditBookAsync(model, book);
+            await _bookService.EditBookAsync(model);
             return RedirectToAction("Index");
         }
 

@@ -103,10 +103,9 @@ namespace BookVerse.Services.Core
                         Publisher = b.Publisher.UserName,
                         PublishedOn = b.PublishedOn,
                         Genre = b.Genre.Name,
-                        //IsSaved = b.UsersBooks.Any(ub => ub.BookId == b.Id && ub.UserId == userId),
-                        IsAuthor = userId != null && b.PublisherId != userId,
+                        IsAuthor = userId != null && b.PublisherId == userId,
                     }).FirstOrDefaultAsync();
-
+                        
             return model;
         }
 
@@ -204,13 +203,15 @@ namespace BookVerse.Services.Core
             return model;
         }
 
-        public async Task EditBookAsync(BookEditViewModel model, Book target)
+        public async Task EditBookAsync(BookEditViewModel model)
         {
             if (!DateTime.TryParseExact(model.PublishedOn, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None,
                out var timeOfPublishing))
             {
                 throw new InvalidOperationException("Invalid date format");
             }
+
+            Book target = new Book();
 
             target.Id = model.Id;
             target.Title = model.Title;
