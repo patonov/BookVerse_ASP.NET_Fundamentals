@@ -26,6 +26,6 @@ namespace BookVerse.Services.Core.Contracts
         Task SoftDeleteBookFromDB(BookDeleteViewModel model);
 
         Task<BookEditViewModel> GetBookViewModelToEditAsync(int id);
-        Task EditBookAsync(BookEditViewModel model);
+        Task EditBookAsync(int id, BookEditViewModel model);
     }
 }

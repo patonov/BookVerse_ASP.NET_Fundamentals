@@ -203,7 +203,7 @@ namespace BookVerse.Services.Core
             return model;
         }
 
-        public async Task EditBookAsync(BookEditViewModel model)
+        public async Task EditBookAsync(int id, BookEditViewModel model)
         {
             if (!DateTime.TryParseExact(model.PublishedOn, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None,
                out var timeOfPublishing))
@@ -211,14 +211,17 @@ namespace BookVerse.Services.Core
                 throw new InvalidOperationException("Invalid date format");
             }
 
-            Book target = new Book();
+            var target = await _context.Books.FindAsync(id);
 
-            target.Id = model.Id;
+            var genres = await _context.Genres.ToListAsync();
+
+            target!.Id = model.Id;
             target.Title = model.Title;
             target.Description = model.Description;
             target.CoverImageUrl = model.CoverImageUrl;
             target.PublishedOn = timeOfPublishing;
             target.GenreId = model.GenreId;
+            target.Genre = genres.FirstOrDefault(g => g.Id == model.GenreId)!;
             target.PublisherId = model.PublisherId;
 
             await _context.Books.AddAsync(target);

@@ -151,7 +151,9 @@ namespace BookVerse.Web.Controllers
                 return View(model);
             }
 
-            Book book = await _bookService.FindBookToDeleteOrEditById(model.Id);
+            int id = model.Id;
+
+            Book book = await _bookService.FindBookToDeleteOrEditById(id);
 
             if (book == null)
             {
@@ -160,12 +162,12 @@ namespace BookVerse.Web.Controllers
 
             var userId = GetUserId();
 
-            if (model.PublisherId != userId)
+            if (book.PublisherId != userId)
             {
                 return RedirectToAction("Index");
             }
 
-            await _bookService.EditBookAsync(model);
+            await _bookService.EditBookAsync(id, model);
             return RedirectToAction("Index");
         }
 

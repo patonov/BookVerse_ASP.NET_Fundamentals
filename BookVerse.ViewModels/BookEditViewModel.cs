@@ -23,13 +23,13 @@ namespace BookVerse.ViewModels
         public string? CoverImageUrl { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{2}-\d{2}-\d{4}$")]
+        //[RegularExpression(@"^\d{2}-\d{2}-\d{4}$")]
         public string PublishedOn { get; set; } = null!;
 
         public int GenreId { get; set; }
 
         public string PublisherId { get; set; } = null!;
 
-        public virtual IEnumerable<GenreViewModel>? Genres { get; set; }
+        public virtual IEnumerable<GenreViewModel>? Genres { get; set; } 
     }
 }
