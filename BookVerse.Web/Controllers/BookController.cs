@@ -63,7 +63,11 @@ namespace BookVerse.Web.Controllers
             return View(model);
         }
 
+<<<<<<< HEAD
         public async Task<IActionResult> AddToMyBooks(int id) 
+=======
+        public async Task<IActionResult> AddToMyBooks(int id) //returning is a problem - it refers to a null object
+>>>>>>> a8a47f0db8f6a76233e26efa8978e0e95b227762
         {
             string userId = GetUserId();
 
