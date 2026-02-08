@@ -112,7 +112,7 @@ namespace BookVerse.Web.Controllers
 
             deleteModel.Id = book.Id;
             deleteModel.Title = book.Title; 
-            deleteModel.Publisher = book.Publisher.UserName;           
+            deleteModel.Publisher = book.Publisher.UserName!;           
 
             return View(deleteModel);
         }

@@ -160,7 +160,8 @@ namespace BookVerse.Services.Core
 
         public async Task<Book> FindBookToDeleteOrEditById(int id)
         {
-            Book book = await _context.Books.FindAsync(id); 
+            var book = await _context.Books.FindAsync(id); 
+
             return book;
         }
 
@@ -215,7 +216,6 @@ namespace BookVerse.Services.Core
 
             var genres = await _context.Genres.ToListAsync();
 
-            target!.Id = model.Id;
             target.Title = model.Title;
             target.Description = model.Description;
             target.CoverImageUrl = model.CoverImageUrl;
@@ -223,7 +223,7 @@ namespace BookVerse.Services.Core
             target.GenreId = model.GenreId;
             target.Genre = genres.FirstOrDefault(g => g.Id == model.GenreId)!;
             target.PublisherId = model.PublisherId;
-
+                        
             await _context.Books.AddAsync(target);
             await _context.SaveChangesAsync();
         }
