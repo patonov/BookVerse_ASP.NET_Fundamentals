@@ -117,9 +117,19 @@ namespace BookVerse.Web.Controllers
             return View(deleteModel);
         }
 
-        public async Task<IActionResult> ConfirmDelete(BookDeleteViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(int id)
         {
-            await _bookService.SoftDeleteBookFromDB(model);
+            string userId = GetUserId();
+            Book book = await _bookService.FindBookToDeleteOrEditById(id);
+
+            if (book == null || book.PublisherId != userId)
+            {
+                return RedirectToAction("Index");
+            }
+
+            await _bookService.SoftDeleteBookFromDB(book);
             return RedirectToAction("Index");
         }
 

@@ -165,11 +165,8 @@ namespace BookVerse.Services.Core
             return book;
         }
 
-        public async Task SoftDeleteBookFromDB(BookDeleteViewModel model)
+        public async Task SoftDeleteBookFromDB(Book? book)
         {
-            Book? book = await _context.Books
-                    .FindAsync(model.Id);
-
             if (book != null)
             {
                 book.IsDeleted = true;

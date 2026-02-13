@@ -23,7 +23,7 @@ namespace BookVerse.Services.Core.Contracts
 
         Task<Book> FindBookToDeleteOrEditById(int id);
 
-        Task SoftDeleteBookFromDB(BookDeleteViewModel model);
+        Task SoftDeleteBookFromDB(Book? model);
 
         Task<BookEditViewModel> GetBookViewModelToEditAsync(int id);
         Task EditBookAsync(int id, BookEditViewModel model);
